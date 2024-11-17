@@ -1,23 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { blackScholes } from '../utils/blackScholes';
 import { Terminal as TerminalIcon, Activity } from 'lucide-react';
 
-export const Terminal = () => {
-  const [inputs, setInputs] = useState({
-    S: 100,    // Stock price
-    K: 100,    // Strike price
-    r: 0.05,   // Risk-free rate
-    sigma: 0.2, // Volatility
-    T: 1       // Time to expiration
-  });
-
-  const [optionType, setOptionType] = useState('call');
-  const [results, setResults] = useState(null);
-
-  useEffect(() => {
-    calculateOption();
-  }, [inputs, optionType]);
-
+export const Terminal = ({ inputs, setInputs, optionType, setOptionType }) => {
   const calculateOption = () => {
     const { S, K, r, sigma, T } = inputs;
     const price = optionType === 'call' 
@@ -32,65 +17,74 @@ export const Terminal = () => {
       rho: blackScholes.rho(S, K, r, sigma, T, optionType)
     };
 
-    setResults({ price, greeks });
+    return { price, greeks };
   };
+
+  const results = calculateOption();
 
   return (
     <div className="font-mono">
-      <div className="border border-green-900 p-4 bg-black text-green-500">
-        <div className="flex items-center gap-2 mb-4">
-          <TerminalIcon size={14} />
-          <span className="text-xs">BLACK_SCHOLES_CALCULATOR</span>
+      <div className="bg-gray-900 border border-gray-800 rounded-lg overflow-hidden">
+        <div className="bg-gray-800 p-4 border-b border-gray-700">
+          <div className="flex items-center gap-2">
+            <TerminalIcon className="text-green-400" size={16} />
+            <span className="text-sm font-medium text-green-400">BLACK_SCHOLES_CALCULATOR</span>
+          </div>
         </div>
 
-        <div className="grid grid-cols-2 gap-4">
-          <div className="space-y-4">
-            {Object.entries(inputs).map(([key, value]) => (
-              <div key={key} className="space-y-1">
-                <label className="text-xs">{key.toUpperCase()}:</label>
-                <input
-                  type="number"
-                  value={value}
-                  onChange={(e) => setInputs(prev => ({
-                    ...prev,
-                    [key]: parseFloat(e.target.value)
-                  }))}
-                  className="w-full bg-black border border-green-900 p-2 text-white"
-                />
+        <div className="p-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="space-y-4">
+              {Object.entries(inputs).map(([key, value]) => (
+                <div key={key} className="space-y-1">
+                  <label className="block text-sm font-medium text-gray-300">
+                    {key.toUpperCase()}:
+                  </label>
+                  <input
+                    type="number"
+                    value={value}
+                    onChange={(e) => setInputs(prev => ({
+                      ...prev,
+                      [key]: parseFloat(e.target.value) || 0
+                    }))}
+                    className="w-full bg-gray-800 border border-gray-700 rounded-md px-3 py-2 text-white focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                    step={key === 'sigma' || key === 'r' ? '0.01' : '1'}
+                  />
+                </div>
+              ))}
+              <div className="space-y-1">
+                <label className="block text-sm font-medium text-gray-300">
+                  OPTION TYPE:
+                </label>
+                <select
+                  value={optionType}
+                  onChange={(e) => setOptionType(e.target.value)}
+                  className="w-full bg-gray-800 border border-gray-700 rounded-md px-3 py-2 text-white focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                >
+                  <option value="call">CALL</option>
+                  <option value="put">PUT</option>
+                </select>
               </div>
-            ))}
-            <div className="space-y-1">
-              <label className="text-xs">OPTION TYPE:</label>
-              <select
-                value={optionType}
-                onChange={(e) => setOptionType(e.target.value)}
-                className="w-full bg-black border border-green-900 p-2 text-white"
-              >
-                <option value="call">CALL</option>
-                <option value="put">PUT</option>
-              </select>
             </div>
-          </div>
 
-          <div className="border border-green-900 p-4">
-            <div className="flex items-center gap-2 mb-4">
-              <Activity size={14} />
-              <span className="text-xs">RESULTS</span>
-            </div>
-            {results && (
-              <div className="space-y-2 text-xs">
-                <div className="flex justify-between">
-                  <span>PRICE:</span>
-                  <span className="text-white">${results.price.toFixed(2)}</span>
+            <div className="bg-gray-800 rounded-lg p-4">
+              <div className="flex items-center gap-2 mb-4">
+                <Activity className="text-green-400" size={16} />
+                <span className="text-sm font-medium text-green-400">RESULTS</span>
+              </div>
+              <div className="space-y-2">
+                <div className="flex justify-between text-sm">
+                  <span className="text-gray-400">PRICE:</span>
+                  <span className="text-white font-mono">${results.price.toFixed(2)}</span>
                 </div>
                 {Object.entries(results.greeks).map(([greek, value]) => (
-                  <div key={greek} className="flex justify-between">
-                    <span>{greek.toUpperCase()}:</span>
-                    <span className="text-white">{value.toFixed(4)}</span>
+                  <div key={greek} className="flex justify-between text-sm">
+                    <span className="text-gray-400">{greek.toUpperCase()}:</span>
+                    <span className="text-white font-mono">{value.toFixed(4)}</span>
                   </div>
                 ))}
               </div>
-            )}
+            </div>
           </div>
         </div>
       </div>
