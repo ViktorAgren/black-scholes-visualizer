@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/black-scholes-visualizer/static/css/main.e6c13ad2.css",
+    "main.js": "/black-scholes-visualizer/static/js/main.577fff46.js",
+    "static/js/453.cc9fe56f.chunk.js": "/black-scholes-visualizer/static/js/453.cc9fe56f.chunk.js",
+    "index.html": "/black-scholes-visualizer/index.html",
+    "main.e6c13ad2.css.map": "/black-scholes-visualizer/static/css/main.e6c13ad2.css.map",
+    "main.577fff46.js.map": "/black-scholes-visualizer/static/js/main.577fff46.js.map",
+    "453.cc9fe56f.chunk.js.map": "/black-scholes-visualizer/static/js/453.cc9fe56f.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.e6c13ad2.css",
+    "static/js/main.577fff46.js"
+  ]
+}
