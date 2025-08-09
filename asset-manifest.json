@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/black-scholes-visualizer/static/css/main.09384442.css",
-    "main.js": "/black-scholes-visualizer/static/js/main.e2bd4b66.js",
+    "main.css": "/black-scholes-visualizer/static/css/main.99b13da2.css",
+    "main.js": "/black-scholes-visualizer/static/js/main.dc6477ee.js",
     "static/js/453.61bf7b96.chunk.js": "/black-scholes-visualizer/static/js/453.61bf7b96.chunk.js",
     "index.html": "/black-scholes-visualizer/index.html",
-    "main.09384442.css.map": "/black-scholes-visualizer/static/css/main.09384442.css.map",
-    "main.e2bd4b66.js.map": "/black-scholes-visualizer/static/js/main.e2bd4b66.js.map",
+    "main.99b13da2.css.map": "/black-scholes-visualizer/static/css/main.99b13da2.css.map",
+    "main.dc6477ee.js.map": "/black-scholes-visualizer/static/js/main.dc6477ee.js.map",
     "453.61bf7b96.chunk.js.map": "/black-scholes-visualizer/static/js/453.61bf7b96.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.09384442.css",
-    "static/js/main.e2bd4b66.js"
+    "static/css/main.99b13da2.css",
+    "static/js/main.dc6477ee.js"
   ]
 }
